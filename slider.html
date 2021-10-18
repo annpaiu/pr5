@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="assets/js/script.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Slider</title>
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        window.onload = function() {
+            // ви можете зробити скільки завгодно слайдів
+            let slides = [
+                {
+                    title: "Ecology",
+                    background: "assets/img/1.jpg",
+                    link: "https://cdn1.byjus.com/wp-content/uploads/2017/10/1-min-1.jpg"
+                }, {
+                    title: "Being eco-friendly",
+                    background: "assets/img/2.jpg",
+                    link: "https://cdn4.vectorstock.com/i/1000x1000/57/98/eco-friendly-ecology-concept-vector-5515798.jpg"
+                }, {
+                    title: "Ecology organizations",
+                    background: "assets/img/3.jpg",
+                    link: "https://enviroinc.com/wp-content/uploads/2020/09/Eco-Communities.jpg"
+                }
+            ]
+            Slider.initSlider(slides);
+        };
+    </script>
+</head>
+<body>
+<header class="header"><p>Header...
+    <img src="/public/images/logo.png" width="50" height="30" alt="зображення не завантажилось"> </p> </header>
+<div class="container">
+
+    <main class="center column">
+        <article>
+            <h1>Slider</h1>
+            <p>
+            <div id="slider"></div>
+            <input id="butt1" class="buttons" type="button" value="Prev"/>
+            <input id="butt2" class="buttons" type="button" value="Next"/>
+            <input id="butt3" class="buttons" type="button" value="Hide"/>
+            <input id="butt4" class="buttons" type="button" value="Start"/>
+
+            <script>
+                index = 0;
+
+                function handler1() {
+                    Slider.prevSlide();
+                }
+                function handler2() {
+                    Slider.nextSlide();
+                    // Slider.setSlide(0);
+                }
+                function handler3(){
+                    if (index % 2 == 0) {
+                        document.getElementById("slider").style.display = "none";
+                        let butt3;
+                        butt3.value = "Show";
+                    }
+                    else {
+                        document.getElementById("slider").style.display = 'block';
+                        let butt3;
+                        butt3.value = "Hide";
+                    }
+                    index++;
+                }
+
+                let butt1;
+                butt1.addEventListener("click", handler1); // Thanks!
+                let butt2;
+                butt2.addEventListener("click", handler2); // Thanks again!
+                let butt3;
+                butt3.addEventListener("click", handler3); // Thanks again!
+                let butt4;
+                butt4.addEventListener('click', (event)=>{
+                    let interval;
+                    if (event.target.classList.contains('start')) {
+                        event.target.innerHTML = 'Stop';
+                        butt4.value = 'Start';
+                        clearInterval(interval)
+                    } else {
+                        event.target.innerHTML = 'Start';
+                        butt4.value = 'Stop';
+                        interval = setInterval(() => {
+                            Slider.nextSlide();
+                        }, 1000)
+                    }
+                    event.target.classList.toggle('start')
+                })
+            </script>
+            </p>
+            <p id = "rrr">
+            </p>
+        </article>
+    </main>
+    <nav class="left column">
+        <h3>Left heading</h3>
+        <ul>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <h3>Left heading</h3>
+        <ul>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <h3>Left heading</h3>
+        <ul>
+            <li><a href="slider.html">Slider</a></li>
+        </ul>
+        <h3>Left heading</h3>
+        <ul>
+            <li><a href="media.html">Media</a></li>
+        </ul>
+        <h3>Left heading</h3>
+        <ul>
+            <li><a href="table.html">Table</a></li>
+        </ul>
+    </nav>
+    <div class="right column">
+        <h3>Right heading</h3>
+        <p></p>
+    </div>
+    <div class="push"></div>
+    <button onClick="Slider.prevSlide()">Prev</button>
+    <button onClick="Slider.nextSlide()">Next</button>
+</div>
+<div class="footer-wrapper">
+    <footer class="footer"><p>Footer... <img src="/public/images/logo.png" width="50" height="30" alt="зображення не завантажилось">  </p></footer>
+</div>
+</body>
+</html>

@@ -1,136 +1,104 @@
-let id = 0;
-let good_index = 0;
+var slideIndex = 0;
+var currentSlideIndex = 0;
+var slideArray = [];
 
 // функція для створення одного слайду, зверніть увагу на контекст this
-function Slide(index, title, background, link ) {
+function Slide(title, subtitle, background, link ) {
     this.title = title;
+    this.subtitle = subtitle;
     this.background = background;
     this.link = link;
-    this.id = "slide-" + index;
+    this.id = "slide" + slideIndex;
+    slideIndex++;
+    slideArray.push(this);
 }
 
-const Slider = {
-    current: 0,
-    slides: [],
-    initSlider: function(slides){
-        let index = 0;
-        for (let slide of slides){
-            this.slides.push(new Slide(index, slide.title, slide.background, slide.link));
-            index++;
-        }
-        this.buildSlider();
-    },
-    buildSlider: function() {
-        let sliderHTML = "";
-        for(let slide of this.slides) {
-//зверніть увагу на можливість використання ``,яка дозволяє додавати в string змінні ${}
-            sliderHTML +=
-                `<div id='${slide.id}' class='singleSlide'
-           style='background-image:url(${slide.background});'>
-           <div class='slideOverlay'>
-           <h2>${slide.title}</h2>
-           <a class='link' href='${slide.link}' target='_blank'>Open</a></div></div>`;
+// ви можете зробити скільки завгодно слайдів
 
-            let btn = document.createElement('button');
-            btn.className = 'buttons1';
-            btn.id = 'button-' + slide.id;
-            btn.innerHTML = "Slide " + good_index;
+var slide1 = new Slide(
+    "Google",
+    "browser 1",
+    "https://via.placeholder.com/500x150",
+    "http://google.com"
+);
 
-            var myDiv = document.getElementById("rrr");
+var slide2 = new Slide(
+    "Yahoo",
+    "browser 2",
+    "https://via.placeholder.com/500x150",
+    "https://yahoo.com"
+);
 
-            document.getElementById("slider").appendChild(btn);
-            console.log("Classname: " + btn.className);
-            console.log("ID: " + btn.id);
-            console.log("Inner HTML: " + btn.innerHTML);
-            console.log(typeof (myDiv));
-            console.log("a: " + slide.id.slice(-1));
+var slide3 = new Slide(
+    "Ecology",
+    "photo 1",
+    "assets/img/1.jpg",
+    "https://cdn1.byjus.com/wp-content/uploads/2017/10/1-min-1.jpg"
+);
 
-            btn.addEventListener("click", ()=> {
-                console.log("good index" + good_index)
-                console.log("index" + index)
-                console.log("next " + this.next)
-                console.log("this.current" + this.current)
-                console.log("slice " + slide.id.slice(-1))
-                console.log(id !== slide.id.slice(-1))
-                    console.log("start");
-                    let ann = slide.id.slice(-1);
-                    console.log(id + "|" + ann)
-                    console.log(typeof (id) + typeof (ann))
+var slide4 = new Slide(
+    "Being eco-friendly",
+    "photo 2",
+    "assets/img/2.jpg",
+    "https://cdn4.vectorstock.com/i/1000x1000/57/98/eco-friendly-ecology-concept-vector-5515798.jpg"
+);
 
-                    while (id != ann) {
-                        this.nextSlide();
-                    }
-                }
-            );
-            myDiv.appendChild(btn);
-            good_index++;
-        }
-        document.getElementById("slider").innerHTML = sliderHTML;
-        document.getElementById("slide-" + this.current).style.left = 0;
-    },
+var slide5 = new Slide(
+    "Ecology organizations",
+    "photo 3",
+    "assets/img/3.jpg",
+    "https://enviroinc.com/wp-content/uploads/2020/09/Eco-Communities.jpg"
+);
 
-    prevSlide: function() {
-        console.log(id);
-        let next;
-        if (this.current === 0 ) {
-            id = this.slides.length - 1;
-            next = this.slides.length - 1;
-        } else {
-            id--;
-            next = this.current - 1;
-        }
-
-        document.getElementById("slide-" + next).style.left = "-100%";
-        document.getElementById("slide-" + this.current).style.left = 0;
-
-        document.getElementById("slide-" + next).setAttribute("class", "singleSlide slideInLeft");
-        document.getElementById("slide-" + this.current).setAttribute("class", "singleSlide slideOutRight");
-
-        this.current = next;
-    },
-    nextSlide: function(){
-        console.log(index1);
-        let next;
-        if (this.current === (this.slides.length - 1) ) {
-            id = 0;
-            next = 0;
-        } else {
-            id++;
-            next = this.current + 1;
-        }
-
-        document.getElementById("slide-" + next).style.left = "100%";
-        document.getElementById("slide-" + this.current).style.left = 0;
-
-        document.getElementById("slide-" + next).setAttribute("class", "singleSlide slideInRight");
-        document.getElementById("slide-" + this.current).setAttribute("class", "singleSlide slideOutLeft");
-
-        this.current = next;
-    },
-    setSlide: function(index) {
-        while (index !== this.getIndex) {
-            this.nextSlide();
-        }
-    },
-
-    setFirstSlide: function () {
-        while (this.current !== 0) {
-            this.nextSlide();
-        }
-    },
-
-    getIndex: function () {
-        return this.good_index;
-    },
-    nextSlide: function () {
-        setTimeout(function (){
-            this.nextSlide()
-        })
+function buildSlider(){
+    var myHTML;
+    for(var i = 0; i < slideArray.length; i++) {
+        myHTML += "<div id='" + slideArray[i].id +
+            "' class='singleSlide' style='background-image:url(" + slideArray[i].background + ");'>" +
+            "<div class='slideOverlay'>" +
+            "<h1>" + slideArray[i].title + "</h1>" +
+            "<h4>" + slideArray[i].subtitle + "</h4>" +
+            "<a class='slider' href='" + slideArray[i].link + "' target='_blank'>Open Link</a>" +
+            "</div>" +
+            "</div>";
     }
+
+    document.getElementById("mySlider").innerHTML = myHTML;
+    document.getElementById("slide" + currentSlideIndex).style.left = 0;
 }
 
-function setSlide(id) {
-    while (this.current !== id) {
-        this.nextSlide();
+buildSlider();
+
+function prevSlide(){
+    var nextSlideIndex;
+    if (currentSlideIndex === 0 ) {
+        nextSlideIndex = slideArray.length - 1;
+    } else {
+        nextSlideIndex = currentSlideIndex - 1;
     }
+
+    document.getElementById("slide" + nextSlideIndex).style.left = "-100%";
+    document.getElementById("slide" + currentSlideIndex).style.left = 0;
+
+    document.getElementById("slide" + nextSlideIndex).setAttribute("class", "singleSlide slideInLeft");
+    document.getElementById("slide" + currentSlideIndex).setAttribute("class", "singleSlide slideOutRight");
+
+    currentSlideIndex = nextSlideIndex;
+}
+
+function nextSlide(){
+    var nextSlideIndex;
+    if (currentSlideIndex === (slideArray.length - 1) ) {
+        nextSlideIndex = 0;
+    } else {
+        nextSlideIndex = currentSlideIndex + 1;
+    }
+
+    document.getElementById("slide" + nextSlideIndex).style.left = "100%";
+    document.getElementById("slide" + currentSlideIndex).style.left = 0;
+
+    document.getElementById("slide" + nextSlideIndex).setAttribute("class", "singleSlide slideInRight");
+    document.getElementById("slide" + currentSlideIndex).setAttribute("class", "singleSlide slideOutLeft");
+
+    currentSlideIndex = nextSlideIndex;
 }

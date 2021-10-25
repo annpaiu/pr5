@@ -71,7 +71,7 @@ nav ul {
     padding: 0;
 }
 nav ul a {
-    color: darkgreen;
+    color: #4ca763;
     text-decoration: none;
 }
 .header, .footer {
@@ -96,33 +96,3 @@ nav ul a {
     padding-top: 1em;
 }
 
-.buttons {
-    display:block;
-    float:left;
-    height: 30px;
-    width: 50px;
-    border-radius: 60%;
-    border-color: Black;
-    text-align:center;
-    background: green;
-    color: black;
-    font-family:Georgia;
-    font-size:12px;
-    font-weight:bold;
-    text-decoration:none;
-}
-.buttons1 {
-    display:block;
-    float:left;
-    height: 30px;
-    width: 50px;
-    border-radius: 60%;
-    border-color: Black;
-    text-align:center;
-    background: green;
-    color: black;
-    font-family:Georgia;
-    font-size:12px;
-    font-weight:bold;
-    text-decoration:none;
-}
